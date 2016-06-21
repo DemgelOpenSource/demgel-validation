@@ -1,0 +1,20 @@
+{
+  "name": "@demgel/validation",
+  "version": "0.0.1-alpha.0",
+  "description": "Object validation with decorators",
+  "repository": "https://github.com/DemgelOpenSource/demgel-validation.git",
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "<tenowg> Craig Russell",
+  "license": "ISC",
+  "dependencies": {
+    "@types/debug": "0.0.22-alpha",
+    "@types/lodash": "^4.0.21-alpha",
+    "debug": "^2.2.0",
+    "lodash": "^4.13.1",
+    "reflect-metadata": "^0.1.3"
+  }
+}
