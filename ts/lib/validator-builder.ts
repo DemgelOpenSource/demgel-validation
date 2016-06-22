@@ -44,11 +44,4 @@ export var testFailValidator = generateValidator("test-validator", (value) => {
 
 export var testSuccessValidator = (options) => generateValidator("test-success-validator", (value) => {
     return null;
-})
-
-export var isNumber =  generateValidator("is-number-validator", (value) => {
-    if (typeof value !== 'number') {
-        return "value is not a number " + value;
-    }
-    return null;
-})
+});
