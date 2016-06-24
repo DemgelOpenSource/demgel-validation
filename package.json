@@ -1,6 +1,6 @@
 {
   "name": "@demgel/validation",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.2",
   "description": "Object validation with decorators",
   "repository": "https://github.com/DemgelOpenSource/demgel-validation.git",
   "main": "lib/index.js",
