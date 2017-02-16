@@ -1,34 +1,36 @@
 export function generateValidator(name: string, validator) {
         return function (target: Object, propertyKey: string) {
             let _val;
-            let getting = false;
+            const getting = false;
             function getter() {
                 return _val;
             }
 
             function setter(value: any) {
                 if (_val !== value) {
-                    let result = validator(value);
+                    const result = validator(value);
                     if (result) {
                         // Add metadata
-                        let existingErrors: Map<string, string> = Reflect.getMetadata("validation-errors", target) || new Map<string, string>();
+                        // tslint:disable-next-line:max-line-length
+                        const existingErrors: Map<string, string> = Reflect.getMetadata('validation-errors', target) || new Map<string, string>();
                         if (!existingErrors.has(`${name}:${propertyKey}`)) {
                             existingErrors.set(`${name}:${propertyKey}`, result);
                         }
-                        Reflect.defineMetadata("validation-errors", existingErrors, target);
+                        Reflect.defineMetadata('validation-errors', existingErrors, target);
                     } else {
                         // Attempt to remove metadata
-                        let existingErrors: Map<string, string> = Reflect.getMetadata("validation-errors", target) || new Map<string, string>();
+                        // tslint:disable-next-line:max-line-length
+                        const existingErrors: Map<string, string> = Reflect.getMetadata('validation-errors', target) || new Map<string, string>();
                         if (existingErrors.has(`${name}:${propertyKey}`)) {
                             existingErrors.delete(`${name}:${propertyKey}`);
                         }
-                        Reflect.defineMetadata("validation-errors", existingErrors, target);
+                        Reflect.defineMetadata('validation-errors', existingErrors, target);
                     }
-            
+
                     _val = value;
                 }
             }
-            
+
             Object.defineProperty(target, propertyKey, {
                 get: getter,
                 set: setter,
@@ -38,10 +40,10 @@ export function generateValidator(name: string, validator) {
         }
     };
 
-export var testFailValidator = generateValidator("test-validator", (value) => {
-        return "There was an error";
+export let testFailValidator = generateValidator('test-validator', (value) => {
+        return 'There was an error';
     });
 
-export var testSuccessValidator = (options) => generateValidator("test-success-validator", (value) => {
+export let testSuccessValidator = (options) => generateValidator('test-success-validator', (value) => {
     return null;
 });

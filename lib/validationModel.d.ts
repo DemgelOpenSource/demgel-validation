@@ -1,6 +1,7 @@
-/// <reference types="lodash" />
-export declare abstract class ValidatableModel {
+export declare abstract class ValidationModel {
     errors: Map<string, string>;
     isValid(): boolean;
-    toJSON(): any;
+    toJSON(): string;
+    fromJSON(jsonString: string, reviver?: (key, value) => any): void;
+    fromObject(object: any): void;
 }

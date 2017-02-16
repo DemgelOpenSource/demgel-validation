@@ -1,13 +1,13 @@
-import * as _debug from "debug";
+import * as _debug from 'debug';
 
 export function Model() {
     return (target: any) => {
-        let isValid = target.prototype.isValid;
-        let debug = _debug(`demgel-mvc:model:${target.name}`);
-        
-        var newIsValid: Function = function () {
-            debug("validating model...");
-            let required: Array<string> = Reflect.getMetadata("required-property", target.prototype) || [];
+        const isValid = target.prototype.isValid;
+        const debug = _debug(`demgel-mvc:model:${target.name}`);
+
+        const newIsValid: Function = function () {
+            debug('validating model...');
+            const required: Array<string> = Reflect.getMetadata('required-property', target.prototype) || [];
             this.errors.clear();
             required.forEach(req => {
                 if (!this[req]) {
@@ -16,20 +16,27 @@ export function Model() {
             });
             debug(`found ${this.errors.size} required errors`);
 
-            let validationErrors: Map<string, string> = Reflect.getMetadata("validation-errors", target.prototype) || new Map<string, string>();
+            // tslint:disable-next-line:max-line-length
+            const validationErrors: Map<string, string> = Reflect.getMetadata('validation-errors', target.prototype) || new Map<string, string>();
             debug(`found ${validationErrors.size} validation errors`);
-            for (let error of validationErrors) {
-                debug("processing validation error", error);
-                if (!this.errors.has(error)) {
-                    debug("setting validation error");
-                    this.errors.set(error[0], error[1]);
+            validationErrors.forEach((key, value) => {
+                if (!this.errors.has(key)) {
+                    debug('setting validation error');
+                    this.errors.set(key, value);
                 }
-            }
+            });
+            //for (const error of validationErrors) {
+            //    debug('processing validation error', error);
+            //    if (!this.errors.has(error)) {
+            //        debug('setting validation error');
+            //        this.errors.set(error[0], error[1]);
+            //    }
+            //}
             return isValid.apply(this);
-        }
+        };
 
         target.prototype.isValid = newIsValid;
 
         return target;
-    }
+    };
 }

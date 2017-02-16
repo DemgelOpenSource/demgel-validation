@@ -1,16 +1,35 @@
-export abstract class ValidatableModel {
+export abstract class ValidationModel {
     errors: Map<string, string> = new Map<string, string>();
+
     isValid(): boolean {
         return !(this.errors.size > 0);
     }
     toJSON() {
-        let i:any = {};
-        for (let prop in this) {
-            if (typeof this[prop] !== "function") {
-                console.log(typeof this[prop]);
-                i[prop] = this[prop];
+        const i: any = {};
+        for (const prop in this) {
+            if (typeof this[prop] !== 'function') {
+                if (prop !== 'errors') {
+                    i[prop] = this[prop];
+                }
             }
         }
-        return i;
+        return JSON.stringify(i);
+    }
+    fromJSON(jsonString: string, reviver?: (key, value) => any) {
+        const object = JSON.parse(jsonString);
+
+        for (const prop in object) {
+            if (typeof this[prop] !== 'function') {
+                this[prop] = object[prop];
+            }
+        }
+    }
+    fromObject(object: any) {
+        const obj = JSON.parse(JSON.stringify(object));
+        for (const prop in obj) {
+            if (typeof this[prop] !== 'function') {
+                this[prop] = obj[prop];
+            }
+        }
     }
 }

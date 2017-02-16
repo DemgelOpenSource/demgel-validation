@@ -6,15 +6,15 @@ There are times when you want to validate an object and assure that all properti
 ## Example
 
 ``` typescript
-import {ValidatableModel, Model} from "@demgel/validation";
+import {ValidationModel, Model, isNumber, isString} from "@demgel/validation";
 
 @Model
 export class SomeModel extends ValidatableModel {
-    @required
+    @required()
     @isNumber
     aNumber: number;
 
-    @required
+    @required()
     @isString
     aString: string;
 }
@@ -68,4 +68,37 @@ export class SomeClass extends ValidatableModel {
     @anotherValidator
     property: string;
 }
+```
+
+## Parsing Object/JSON into Models
+``` typescript
+@Model()
+export class ClassWithProperties extends ValidatableModel {
+    @required()
+    prop: string;
+    another: number;
+    array: SomeType[];
+}
+```
+
+Call your api and get this JSON string back.
+``` json
+{
+    'prop': 'a string',
+    'another': 42,
+    'array': ['value', 'anothervalue']
+}
+```
+
+``` typescript
+const jsonString = (api call returned value);
+
+let classWithProperties = new ClassWithProperties();
+classWithProperties.fromJSON(jsonString);
+// classWithProperties is not populated with values from jsonString
+
+// If you needed to parse the jsonString first
+let obj = JSON.parse(jsonString);
+classWithProperties.fromObject(obj);
+// classWithProperties is now populated with values from obj
 ```
