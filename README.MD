@@ -39,6 +39,8 @@ If there is an error the model will contain a property called `errors`. `errors`
 
 You can write your own validators by using the `generateValidator` function.
 
+returning `null` equals no error, returning a string will set the validator to error.
+
 ``` typescript
 export declare function generateValidator(name: string, validator: any): (target: Object, propertyKey: string) => void;
 ```
@@ -46,10 +48,15 @@ export declare function generateValidator(name: string, validator: any): (target
 ``` typescript
 export var someValidator = (options) => generateValidator("someValidator", (value) => {
     // Check the value to see if it matches
+    if (valueisnotgood) {
+        return "Value is not right";
+    }
+    return null;
 }
 
 export var anotherValidator = generateValidator("anotherValidator", (value) => {
     // Check the value to see if it is correct
+    return null;
 }
 ```
 

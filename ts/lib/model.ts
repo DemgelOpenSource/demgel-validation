@@ -19,19 +19,12 @@ export function Model() {
             // tslint:disable-next-line:max-line-length
             const validationErrors: Map<string, string> = Reflect.getMetadata('validation-errors', target.prototype) || new Map<string, string>();
             debug(`found ${validationErrors.size} validation errors`);
-            validationErrors.forEach((key, value) => {
+            validationErrors.forEach((value, key) => {
                 if (!this.errors.has(key)) {
                     debug('setting validation error');
                     this.errors.set(key, value);
                 }
             });
-            //for (const error of validationErrors) {
-            //    debug('processing validation error', error);
-            //    if (!this.errors.has(error)) {
-            //        debug('setting validation error');
-            //        this.errors.set(error[0], error[1]);
-            //    }
-            //}
             return isValid.apply(this);
         };
 
