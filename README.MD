@@ -11,11 +11,11 @@ import {ValidationModel, Model, isNumber, isString} from "@demgel/validation";
 @Model
 export class SomeModel extends ValidationModel {
     @required()
-    @isNumber
+    @isNumber()
     aNumber: number;
 
     @required()
-    @isString
+    @isString()
     aString: string;
 }
 ```
@@ -78,7 +78,40 @@ export class SomeClass extends ValidatableModel {
 }
 ```
 
-## Parsing Object/JSON into Models
+## Parsing Object/JSON into/from Models
+
+### TO JSON
+
+You should (and probably best) use the obj.toJSON() function from a `ValidationModel` to convert a Model to JSON.
+There are some underlying functions and values that should not be serialized, such as `error`.
+
+Also there is a decorator that you can use `excludeJSON` that will let you mark properties that should be excluded
+from the JSON output.
+
+``` typescript
+@Model()
+export class JSONClass extends ValidatableModel {
+    @excludeJSON()
+    property: string;
+    aprop: number;
+}
+
+let cla = new JSONClass();
+cla.property = 'something';
+cla.aprop = 42;
+
+cla.toJSON();
+```
+
+This will output:
+``` json
+{"aprop": 42}
+```
+
+notice the excluded property of `property` is not included.
+
+### FROM JSON/Object
+
 ``` typescript
 @Model()
 export class ClassWithProperties extends ValidatableModel {

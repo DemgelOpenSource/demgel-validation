@@ -6,9 +6,10 @@ export abstract class ValidationModel {
     }
     toJSON() {
         const i: any = {};
+        const excludeJSON: Array<string> = Reflect.getMetadata('exclude-json-property', this) || [];
         for (const prop in this) {
             if (typeof this[prop] !== 'function') {
-                if (prop !== 'errors') {
+                if (prop !== 'errors' && excludeJSON.indexOf(prop) === -1) {
                     i[prop] = this[prop];
                 }
             }

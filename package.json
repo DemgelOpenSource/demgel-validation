@@ -1,6 +1,6 @@
 {
   "name": "@demgel/validation",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "Object validation with decorators",
   "keywords": [
     "validation", "object", "model", "mvc"
