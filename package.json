@@ -1,6 +1,6 @@
 {
   "name": "@demgel/validation",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "Object validation with decorators",
   "keywords": [
     "validation", "object", "model", "mvc"
@@ -14,10 +14,12 @@
   "author": "<tenowg> Craig Russell",
   "license": "ISC",
   "dependencies": {
-    "@types/debug": "0.0.29",
-    "@types/lodash": "^4.14.52",
     "debug": "^2.6.1",
     "lodash": "^4.17.4",
     "reflect-metadata": "^0.1.9"
+  },
+  "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/lodash": "^4.14.52"
   }
 }
