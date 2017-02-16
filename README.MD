@@ -9,7 +9,7 @@ There are times when you want to validate an object and assure that all properti
 import {ValidationModel, Model, isNumber, isString} from "@demgel/validation";
 
 @Model
-export class SomeModel extends ValidatableModel {
+export class SomeModel extends ValidationModel {
     @required()
     @isNumber
     aNumber: number;
@@ -27,13 +27,14 @@ if (someModel.isValid()) {
     // Do something with the data...
 } else {
     // report Error
-    this.errors.forEach(error => {
-        console.log(error);
+    this.errors.forEach((error, message) => {
+        console.log(`${error}: ${message}`);
     };
 }
 ```
 
-If there is an error the model will containn a property called `errors`. `errors` is a `Map<string, string>`.
+If there is an error the model will contain a property called `errors`. `errors` is a `Map<string, string>`.
+
 ## Custom Validators
 
 You can write your own validators by using the `generateValidator` function.
@@ -84,9 +85,9 @@ export class ClassWithProperties extends ValidatableModel {
 Call your api and get this JSON string back.
 ``` json
 {
-    'prop': 'a string',
-    'another': 42,
-    'array': ['value', 'anothervalue']
+    "prop": "a string",
+    "another": 42,
+    "array": ["value", "anothervalue"]
 }
 ```
 
