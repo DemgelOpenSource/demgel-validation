@@ -3,23 +3,30 @@
   "version": "0.0.1-beta.2",
   "description": "Object validation with decorators",
   "keywords": [
-    "validation", "object", "model", "mvc"
+    "validation",
+    "object",
+    "model",
+    "mvc"
   ],
   "repository": "https://github.com/DemgelOpenSource/demgel-validation.git",
   "main": "lib/index.js",
   "typings": "lib/index",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "<tenowg> Craig Russell",
   "license": "ISC",
   "dependencies": {
     "debug": "^2.6.1",
     "lodash": "^4.17.4",
-    "reflect-metadata": "^0.1.9"
+    "reflect-metadata": "^0.1.9",
+    "snyk": "^1.319.1"
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
     "@types/lodash": "^4.14.52"
-  }
+  },
+  "snyk": true
 }
